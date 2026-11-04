@@ -1,0 +1,18 @@
+# The public repository must never contain executable strategy code or runtime data
+.env
+.env.*
+*.py
+*.pyc
+*.db
+*.sqlite*
+*.csv
+*.parquet
+*.pem
+*.key
+.venv/
+data/
+logs/
+src/
+config/
+scripts/
+tests/
