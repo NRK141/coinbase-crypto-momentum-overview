@@ -1,5 +1,5 @@
 # Rights and Distribution
 
-Copyright (c) 2026. All rights reserved by the original project author.
+Copyright © 2026. All rights reserved by the original project author.
 
-No permission to use or redistribute proprietary strategy implementation is granted. The public repository contains only introductory documentation. GitHub may still allow download of this documentation.
+The source in this public repository is provided for viewing. No license to use or redistribute the implementation is granted by this notice. Third-party components, if any, remain subject to their respective terms.

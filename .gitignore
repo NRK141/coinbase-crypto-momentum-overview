@@ -1,18 +1,23 @@
-# The public repository must never contain executable strategy code or runtime data
+# Credentials, local datasets and generated state
 .env
 .env.*
-*.py
-*.pyc
-*.db
-*.sqlite*
-*.csv
-*.parquet
+!.env.example
 *.pem
 *.key
+*.p12
 .venv/
-data/
-logs/
-src/
-config/
-scripts/
-tests/
+venv/
+__pycache__/
+.pytest_cache/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+/data/
+/logs/
+/outputs/
+/tmp/
+*.csv
+*.parquet
+*.sqlite*
+*.db

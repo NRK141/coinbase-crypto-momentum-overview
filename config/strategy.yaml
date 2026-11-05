@@ -1,0 +1,176 @@
+# Public example for tests and observation only; not a production or live-trading configuration.
+# Allocation is deliberately zero. Configure and independently validate any deployment.
+strategy:
+  name: "Illustrative public configuration"
+  quote_currency: "USD"
+  cash_equivalent_symbols: [USDC]
+  deployment_pct: 0.0
+  max_positions: 2
+
+universe:
+  refresh_minutes: 30
+  min_quote_volume_24h_usd: 500000
+  max_spread_pct: 0.0050
+  max_products: 120
+  cache_revision: 2
+  stablecoin_symbols: [USDC, USDT, DAI, PYUSD, EURC, GUSD, USDS]
+  excluded_symbols: []
+  require_spot: true
+  min_history_hours: 337
+
+
+universe_research:
+  enabled: true
+  log_path: "logs/universe_audit.log"
+  volume_tiers_usd: [1000000, 500000, 250000]
+  spread_tiers_pct: [0.0050, 0.0075, 0.0100]
+  history_tiers_hours: [337, 168, 72]
+  top_rejected_examples: 10
+
+shadow_universe:
+  refresh_minutes: 30
+  min_quote_volume_24h_usd: 250000
+  max_spread_pct: 0.0050
+  max_products: 160
+  min_history_hours: 337
+  cache_revision: 1
+
+regime_universe:
+  refresh_minutes: 120
+  min_quote_volume_24h_usd: 1000000
+  max_spread_pct: 0.0050
+  max_products: 30
+  min_products_warning: 25
+  min_history_hours: 337
+  cache_revision: 2
+
+signal:
+  lookbacks_hours: [24, 72, 168, 336]
+  weights: [0.15, 0.25, 0.35, 0.25]
+  ema_fast_hours: 24
+  ema_slow_hours: 72
+  ema_slope_lookback_hours: 6
+  atr_hours: 14
+  realized_vol_hours: 72
+  top_percentile: 0.90
+  persistence_scans: 3
+  breakout_hours: 3
+  max_one_hour_sigma: 2.5
+  max_distance_atr: 2.0
+  diagnostic_top_n: 10
+
+regime:
+  btc_product: "BTC-USD"
+  breadth_risk_on: 0.50
+  breadth_risk_on_exit: 0.45
+  breadth_risk_off_enter: 0.35
+  breadth_risk_off_exit: 0.40
+  block_new_entries_in_risk_off: true
+
+execution:
+  entry_mode: "maker_first"
+  max_spread_pct: 0.0035
+  max_preview_slippage_pct: 0.0025
+  max_maker_roundtrip_friction_pct: 0.0250
+  max_taker_roundtrip_friction_pct: 0.0300
+  min_24h_return_to_maker_friction_multiple: 2.5
+  min_24h_return_to_taker_friction_multiple: 2.5
+  maker_inside_spread_fraction: 0.50
+  maker_wait_seconds: 20
+  maker_sufficient_fill_fraction: 0.85
+  fallback_taker_enabled: false
+  fallback_max_chase_pct: 0.0025
+  fallback_limit_buffer_pct: 0.0015
+  fallback_min_cash_usd: 5.00
+  min_cash_reserve_usd: 5.00
+  order_fill_wait_seconds: 20
+  entry_balance_settlement_wait_seconds: 20
+  entry_protection_wait_seconds: 20
+  orphan_recovery_max_age_hours: 6
+  api_retry_attempts: 4
+  api_retry_base_seconds: 0.75
+  request_spacing_seconds: 0.08
+
+risk:
+  atr_stop_multiple: 2.0
+  min_stop_pct: 0.04
+  max_stop_pct: 0.07
+  stop_limit_buffer_pct: 0.015
+  trail_atr_multiple: 2.5
+  trail_activation_r: 1.0
+
+  profit_lock_activation_pct: 0.05
+  profit_lock_min_trigger_pct: 0.035
+  profit_lock_min_limit_pct: 0.025
+  profit_capture_ratio: 0.65
+  profit_capture_limit_gap_pct: 0.01
+  max_new_entries_per_24h: 2
+  stopped_token_cooldown_hours: 8
+  daily_realized_loss_halt_pct: 0.05
+  max_account_drawdown_pct: 0.10
+  dust_value_usd: 1.00
+
+rotation:
+  hold_rank_floor_percentile: 0.70
+  replacement_min_percentile: 0.90
+  replacement_score_gap: 0.15
+
+shadow_15m:
+  enabled: true
+  scan_interval_minutes: 15
+  scan_offset_minute_utc: 3
+  candle_bars: 349
+  min_history_bars: 337
+  lookback_bars: [24, 72, 168, 336]
+  weights: [0.15, 0.25, 0.35, 0.25]
+  ema_fast_bars: 24
+  ema_slow_bars: 72
+  ema_slope_lookback_bars: 6
+  atr_bars: 14
+  realized_vol_bars: 72
+  top_percentile: 0.90
+  persistence_scans: 3
+  breakout_bars: 3
+  max_one_bar_sigma: 2.5
+  max_distance_atr: 2.0
+  estimated_maker_fee_pct: 0.005
+  estimated_taker_fee_pct: 0.010
+  log_path: "logs/shadow_15m.log"
+
+remote_monitor:
+  dashboard_enabled: false
+  dashboard_host: "127.0.0.1"
+  dashboard_port: 8765
+  runtime_degraded_seconds: 45
+  runtime_offline_seconds: 90
+  watchdog_stale_seconds: 20
+
+trade_ledger:
+  enabled: true
+  csv_path: "logs/trade_log.csv"
+
+runtime:
+  signal_scan_interval_minutes: 15
+  signal_scan_offset_minute_utc: 3
+
+  scan_minute_utc: 3
+
+  universe_refresh_offset_minute_utc: 3
+
+  position_exit_check_minutes: 5
+  position_exit_check_offset_minute_utc: 3
+
+  idle_poll_seconds: 15
+  websocket_enabled: true
+  websocket_health_product: "BTC-USD"
+  websocket_reconnect_max_seconds: 30
+  websocket_stale_after_seconds: 30
+  websocket_stale_warning_repeat_seconds: 120
+  sqlite_path: "data/state.db"
+  log_dir: "logs"
+  screener_log_path: "logs/screener_log.log"
+  heartbeat_path: "data/runtime_heartbeat.json"
+  runtime_fatal_log_path: "logs/runtime_fatal.log"
+  scheduler_recovery_seconds: 5
+  scheduler_failure_window_seconds: 600
+  scheduler_max_failures_in_window: 5

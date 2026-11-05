@@ -4,7 +4,7 @@
 
 A Python-based quantitative research and execution project studying cross-sectional cryptocurrency momentum, market-regime filters, liquidity-aware security selection, and risk-managed Coinbase Advanced spot trading.
 
-**This public project overview is intentionally documentation-only.** The execution engine, proprietary strategy parameters, credentials, account activity, and production infrastructure are maintained separately and are not distributed here.
+This repository contains a curated source release, synthetic tests, and an illustrative configuration. Credentials, account activity, local data, logs, and private operational state are not included. The example configuration defaults to observation mode and sets deployment allocation to zero; it is not a validated production configuration.
 
 ## Research and engineering domains
 
@@ -28,12 +28,21 @@ flowchart LR
   F --> G
 ```
 
+## Source and tests
+
+- `src/crypto_momentum/` contains exchange integration, strategy, execution, monitoring, and supporting modules.
+- `tests/` contains synthetic tests; no account or trading history is included.
+- `.env.example` has blank credential fields and defaults to observation mode. `config/strategy.yaml` is an illustrative configuration with zero deployment allocation.
+- `scripts/` and the Windows command files provide setup and supervision helpers.
+
+For the test suite, use Python 3.11 or later, install `requirements.txt`, then run `python -m pytest`. The application requires separately supplied exchange credentials and market data for connected workflows. Keep any populated `.env` private. The source includes live-order functionality; do not use the example as a production deployment without independent review and validation.
+
 ## Scope and disclosure
 
-The project is an independent research/software-engineering initiative. This public overview does **not** represent audited live performance, an investment product, an open-source code release, or a recommendation to trade. Trading can lead to substantial financial loss.
+This independent research/software-engineering project does not represent audited live performance, an investment product, or a recommendation to trade. Trading can lead to substantial financial loss.
 
 ## Source availability
 
-The project source is not distributed through this public overview. **GitHub does not provide a way to prevent downloading or copying files contained in a public repository.** Nothing in this public package purports to impose a technical download restriction.
+The curated source and tests are publicly viewable; credentials, account information, and runtime data are not distributed. Public files can be copied or downloaded. No license is granted beyond any rights expressly stated in the accompanying notice.
 
 © 2026. All rights reserved by the original project author.
